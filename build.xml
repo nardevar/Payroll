@@ -134,7 +134,7 @@
 	</target>
 
 	<target name="coverage-report">
-		<cobertura-report format="html" destdir="${cobertura.output}"  srcdir="${src.dir}" />
+		<cobertura-report format="xml" destdir="${cobertura.output}"  srcdir="${src.dir}" />
 	</target>
 
 	<target name="report" depends="test,test-report,coverage-report,code-quality">
@@ -142,9 +142,9 @@
 
 	<target name="show-report">
 		<exec executable="C:/Program Files (x86)/Google/Chrome/Application/chrome.exe" spawn="true">
-			<arg value="${junit.output}/html/index.html" />	
-			<arg value="${cobertura.output}/index.html" />	
-			<arg value="${pmd.output}/index.html" />	
+			<arg value="${junit.output}/html/index.xml" />	
+			<arg value="${cobertura.output}/index.xml" />	
+			<arg value="${pmd.output}/index.xml" />	
 		</exec>
 	</target>
 
