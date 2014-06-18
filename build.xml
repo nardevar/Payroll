@@ -79,7 +79,7 @@
 	<target name="code-quality" depends="compile,compile-test">
 
 		<pmd failOnRuleViolation="no">
-			<formatter type="html" toFile="${pmd.output}/index.html" />
+			<formatter type="xml" toFile="${pmd.output}/index.xml" />
  			<sourceLanguage name="java" version="1.6"/>
 			<ruleset>rulesets/java/basic.xml</ruleset>
 			<ruleset>rulesets/java/design.xml</ruleset>
