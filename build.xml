@@ -19,6 +19,7 @@
 	<property name="cobertura.lib.dir" location="${lib.dir}/cobertura" />	
 	<property name="pmd.lib.dir" location="${lib.dir}/pmd" />
 	<property name="checkstyle.lib.dir" location="${lib.dir}/checkstyle" />
+	<property name="jpened.lib.dir" location="${lib.dir}/jdepend" />
 	
 	<path id="junit.classpath">
 		<pathelement path="${classes.dir}" />
@@ -44,11 +45,17 @@
        			<include name="*.jar" />
        		</fileset>
 	</path>
+	
+		<path id="jdepend.classpath">
+		<fileset dir="${jdepend.lib.dir}">
+       			<include name="*.jar" />
+       		</fileset>
+	</path>
 
 	<taskdef resource="tasks.properties" classpathref="cobertura.classpath" />
 	<taskdef classpathref="pmd.classpath"  name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
 	<taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
-
+	
 	<target name="info">
 		<echo>It is a Banking application!</echo>		
 		<echo>Author - Bill</echo>		
