@@ -17,7 +17,7 @@
 	<property name="junit.lib.dir" location="${lib.dir}/junit" />	
 	<property name="cobertura.lib.dir" location="${lib.dir}/cobertura" />	
 	<property name="pmd.lib.dir" location="${lib.dir}/pmd" />
-	<property name="checkstyle.lib.dir" location="${lib.dir}/checkstyle"
+	<property name="checkstyle.lib.dir" location="${lib.dir}/checkstyle" />
 	
 	<path id="junit.classpath">
 		<pathelement path="${classes.dir}" />
