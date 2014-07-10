@@ -73,6 +73,7 @@
 		<mkdir dir="${test.classes.dir}" />
 		<mkdir dir="${junit.output}" />
 		<mkdir dir="${cobertura.output}" />
+		<mkdir dir="${checkstyle.output}" />
 		<mkdir dir="${pmd.output}" />
 		<mkdir dir="${inst.dir}" />
 	</target>
