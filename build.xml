@@ -10,12 +10,14 @@
 	
 	<property name="junit.output" location="${report.dir}/junit" />	
 	<property name="cobertura.output" location="${report.dir}/cobertura" />	
-	<property name="pmd.output" location="${report.dir}/pmd" />	
+	<property name="pmd.output" location="${report.dir}/pmd" />
+	<property name="checkstyle.output" location="${report.dir}/checkstyle" />
 
 	<property name="lib.dir" location="lib" />
 	<property name="junit.lib.dir" location="${lib.dir}/junit" />	
 	<property name="cobertura.lib.dir" location="${lib.dir}/cobertura" />	
-	<property name="pmd.lib.dir" location="${lib.dir}/pmd" />	
+	<property name="pmd.lib.dir" location="${lib.dir}/pmd" />
+	<property name="checkstyle.lib.dir" location="${lib.dir}/checkstyle"
 	
 	<path id="junit.classpath">
 		<pathelement path="${classes.dir}" />
@@ -34,6 +36,12 @@
 		<fileset dir="${pmd.lib.dir}">
        			<include name="*.jar" />
    		</fileset>
+	</path>
+	
+	<path id="checkstyle.classpath">
+		<fileset dir="${checkstyle.lib.dir}">
+       			<include name="*.jar" />
+       		</fileset>
 	</path>
 
 	<taskdef resource="tasks.properties" classpathref="cobertura.classpath" />
@@ -136,8 +144,21 @@
 	<target name="coverage-report">
 		<cobertura-report format="xml" destdir="${cobertura.output}"  srcdir="${src.dir}" />
 	</target>
+	
+	<target name="checkstyle" description="Generates a report of code convention violations.">
 
-	<target name="report" depends="test,test-report,coverage-report,code-quality">
+  		<checkstyle config="${checksytle.lib.dir}/sun_checks.xml" failureProperty="checkstyle.failure" failOnViolation="false">
+    		
+    			<formatter type="xml" tofile="${checkstyle.output}/checkstyle_report.xml"/>
+    		
+    			<fileset dir="${src.dir}" includes="**/*.java"/>
+  		</checkstyle>
+
+  		<style in="checkstyle_report.xml" out="checkstyle_report.html" style="checkstyle.xsl"/>
+	
+	</target>
+
+	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle">
 	</target>
 
 	<target name="show-report">
