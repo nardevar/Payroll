@@ -46,6 +46,7 @@
 
 	<taskdef resource="tasks.properties" classpathref="cobertura.classpath" />
 	<taskdef classpathref="pmd.classpath"  name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
+	<taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
 
 	<target name="info">
 		<echo>It is a Banking application!</echo>		
