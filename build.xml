@@ -12,6 +12,7 @@
 	<property name="cobertura.output" location="${report.dir}/cobertura" />	
 	<property name="pmd.output" location="${report.dir}/pmd" />
 	<property name="checkstyle.output" location="${report.dir}/checkstyle" />
+	<property name="jdepend.output" location="${report.dir}/jdepend" />
 
 	<property name="lib.dir" location="lib" />
 	<property name="junit.lib.dir" location="${lib.dir}/junit" />	
@@ -74,6 +75,7 @@
 		<mkdir dir="${junit.output}" />
 		<mkdir dir="${cobertura.output}" />
 		<mkdir dir="${checkstyle.output}" />
+		<mkdir dir="${jdepend.output}" />
 		<mkdir dir="${pmd.output}" />
 		<mkdir dir="${inst.dir}" />
 	</target>
@@ -157,8 +159,24 @@
 
   	
 	</target>
+	
+	<target name="jdepend">
 
-	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle">
+  		<jdepend format="xml" outputfile="${jdepend.output}/jdepend-report.xml">
+      	  		<exclude name="java.*"/>
+			<exclude name="javax.*"/>
+			<classespath>
+			<pathelement location="${classes.dir}" />
+      			</classespath>
+    
+			 <classpath location="${classes.dir}" />
+  		</jdepend>
+
+		<style basedir="${jdepend.output}" destdir="${jdepend.output}" includes="${jdepend.output}/jdepend-report.xml" style="${ant.home}/etc/jdepend.xsl" />
+
+	</target>
+
+	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle,jdepend">
 	</target>
 
 	<target name="show-report">
