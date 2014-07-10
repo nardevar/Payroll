@@ -151,7 +151,8 @@
 
   		<checkstyle config="lib/checkstyle/sun_checks.xml" failureProperty="checkstyle.failure" failOnViolation="false">
     		
-    					<fileset dir="${src.dir}" includes="**/*.java"/>
+    			 <formatter type="xml" tofile="${checkstyle.output}/checkstyle_report.xml"/>
+    			<fileset dir="${src.dir}" includes="**/*.java"/>
   		</checkstyle>
 
   	
