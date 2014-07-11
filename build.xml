@@ -13,6 +13,7 @@
 	<property name="pmd.output" location="${report.dir}/pmd" />
 	<property name="checkstyle.output" location="${report.dir}/checkstyle" />
 	<property name="jdepend.output" location="${report.dir}/jdepend" />
+	<property name="findbugs.output" location="${report.dir}/findbugs" />
 
 	<property name="lib.dir" location="lib" />
 	<property name="junit.lib.dir" location="${lib.dir}/junit" />	
@@ -20,6 +21,7 @@
 	<property name="pmd.lib.dir" location="${lib.dir}/pmd" />
 	<property name="checkstyle.lib.dir" location="${lib.dir}/checkstyle" />
 	<property name="jpened.lib.dir" location="${lib.dir}/jdepend" />
+	<property name="findbugs.lib.dir" location="${lib.dir}/findbugs" />
 	
 	<path id="junit.classpath">
 		<pathelement path="${classes.dir}" />
@@ -51,10 +53,17 @@
        			<include name="*.jar" />
        		</fileset>
 	</path>
+	
+	<path id="findbugs.classpath">
+		<fileset dir="$findbugs.lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 
 	<taskdef resource="tasks.properties" classpathref="cobertura.classpath" />
 	<taskdef classpathref="pmd.classpath"  name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
 	<taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
+	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
 	
 	<target name="info">
 		<echo>It is a Banking application!</echo>		
@@ -68,6 +77,9 @@
 		<delete dir="${cobertura.output}" />
 		<delete dir="${junit.output}" />
 		<delete dir="${pmd.output}" />
+		<delete dir="${checkstyle.output}" />
+		<delete dir="${jdepend.output}" />
+		<delete dir="${findbugs.output}" />
 		<delete dir="${inst.dir}" />
 		<delete dir="${report.dir}" />
 		<delete dir="${target.dir}" />
@@ -83,6 +95,7 @@
 		<mkdir dir="${cobertura.output}" />
 		<mkdir dir="${checkstyle.output}" />
 		<mkdir dir="${jdepend.output}" />
+		<mkdir dir="${findbugs.output}" />
 		<mkdir dir="${pmd.output}" />
 		<mkdir dir="${inst.dir}" />
 	</target>
@@ -182,8 +195,16 @@
 		<style basedir="${jdepend.output}" destdir="${jdepend.output}" includes="${jdepend.output}/jdepend-report.xml" style="${ant.home}/etc/jdepend.xsl" />
 
 	</target>
+	
+	 <target name="findbugs" depends="jar">
+    		<findbugs home="${findbugs.lib.dir}" output="xml" outputFile="${findbugs.output}/bcel-fb.xml" >
+      <!--<auxClasspath path="${basedir}/lib/Regex.jar" />-->
+      <sourcePath path="${src.dir}" />
+      <class location="${findbugs.lib.dir}/bcel-6.0-SNAPSHOT.jar" />
+    </findbugs>
+  </target>
 
-	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle,jdepend">
+	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle,jdepend,findbugs">
 	</target>
 
 	<target name="show-report">
