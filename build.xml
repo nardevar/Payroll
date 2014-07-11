@@ -201,7 +201,7 @@
     		<findbugs home="${findbugs.lib.dir}" output="xml" outputFile="${findbugs.output}/bcel-fb.xml" >
       <!--<auxClasspath path="${basedir}/lib/Regex.jar" />-->
       <sourcePath path="${src.dir}" />
-      <class location="${findbugs.lib.dir}/bcel.jar" />
+      <class location="${findbugs.lib.dir}/lib/bcel-6.0-SNAPSHOT.jar" />
     </findbugs>
   </target>
 
