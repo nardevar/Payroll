@@ -14,7 +14,8 @@
 	<property name="checkstyle.output" location="${report.dir}/checkstyle" />
 	<property name="jdepend.output" location="${report.dir}/jdepend" />
 	<property name="findbugs.output" location="${report.dir}/findbugs" />
-
+	<property name="javancss.output" location="${report.dir}/javancss" />
+	
 	<property name="lib.dir" location="lib" />
 	<property name="junit.lib.dir" location="${lib.dir}/junit" />	
 	<property name="cobertura.lib.dir" location="${lib.dir}/cobertura" />	
@@ -22,6 +23,7 @@
 	<property name="checkstyle.lib.dir" location="${lib.dir}/checkstyle" />
 	<property name="jpened.lib.dir" location="${lib.dir}/jdepend" />
 	<property name="findbugs.lib.dir" location="${lib.dir}/findbugs" />
+	<property name="javancss.lib.dir" location="${lib.dir}/javancss" />
 	
 	<path id="junit.classpath">
 		<pathelement path="${classes.dir}" />
@@ -61,10 +63,17 @@
 		</fileset>
 	</path>
 
+	<path id="javancss.classpath">
+		<fileset dir="javancss.lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
 	<taskdef resource="tasks.properties" classpathref="cobertura.classpath" />
 	<taskdef classpathref="pmd.classpath"  name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
 	<taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
 	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+	<taskdef name="javancss" classname="javancss.JavancssAntTask" classpath="${javancsss.classpath}"/>
 	
 	<target name="info">
 		<echo>It is a Banking application!</echo>		
@@ -81,6 +90,7 @@
 		<delete dir="${checkstyle.output}" />
 		<delete dir="${jdepend.output}" />
 		<delete dir="${findbugs.output}" />
+		<delete dir="${javancss.output}" />
 		<delete dir="${inst.dir}" />
 		<delete dir="${report.dir}" />
 		<delete dir="${target.dir}" />
@@ -97,6 +107,7 @@
 		<mkdir dir="${checkstyle.output}" />
 		<mkdir dir="${jdepend.output}" />
 		<mkdir dir="${findbugs.output}" />
+		<mkdir dir="${javancss.output}" />
 		<mkdir dir="${pmd.output}" />
 		<mkdir dir="${inst.dir}" />
 	</target>
@@ -199,13 +210,18 @@
 	
 	 <target name="findbugs">
     		<findbugs home="${findbugs.lib.dir}" output="xml" outputFile="${findbugs.output}/bcel-fb.xml" >
-      <!--<auxClasspath path="${basedir}/lib/Regex.jar" />-->
-      <sourcePath path="${src.dir}" />
-      <class location="${findbugs.lib.dir}/lib/bcel-6.0-SNAPSHOT.jar" />
-    </findbugs>
-  </target>
+      		<sourcePath path="${src.dir}" />
+      		<class location="${findbugs.lib.dir}/lib/bcel-6.0-SNAPSHOT.jar" />
+    		</findbugs>
+  	</target>
+  	
+  	<target name="javancss">
+  		
+  	  <javancss srcdir="${src.dir}" generateReport="true" outputfile="${javancss.output}/javancss_metrics.xml" format="xml"/>
 
-	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle,jdepend,findbugs">
+  	</target>
+
+	<target name="report" depends="test,test-report,coverage-report,code-quality,checkstyle,jdepend,findbugs,javancss">
 	</target>
 
 	<target name="show-report">
