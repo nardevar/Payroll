@@ -64,7 +64,7 @@
 	</path>
 
 	<path id="javancss.classpath">
-		<fileset dir="javancss.lib.dir}">
+		<fileset dir="${javancss.lib.dir}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
