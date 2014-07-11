@@ -73,7 +73,7 @@
 	<taskdef classpathref="pmd.classpath"  name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" />
 	<taskdef resource="checkstyletask.properties" classpathref="checkstyle.classpath"/>
 	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
-	<taskdef name="javancss" classname="javancss.JavancssAntTask" classpathref="${javancss.classpath}"/>
+	<taskdef name="javancss" classname="javancss.JavancssAntTask" classpathref="javancss.classpath"/>
 	
 	<target name="info">
 		<echo>It is a Banking application!</echo>		
