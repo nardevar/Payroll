@@ -1,5 +1,7 @@
 <project name="hdfc-bank" basedir="." default="package">
 	
+	<!-- added comment here-->
+	
 	<property name="src.dir" location="src" />	
 	<property name="src.test.dir" location="test" />	
 	<property name="classes.dir" location="classes" />	
